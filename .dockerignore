@@ -1,0 +1,4 @@
+docker-compose.yml
+venv
+.git
+.gitignore
