@@ -1,14 +1,17 @@
-from rest_framework import viewsets, status
-from rest_framework.response import Response
-from .models import Author, Book, Member, Loan
-from .serializers import AuthorSerializer, BookSerializer, MemberSerializer, LoanSerializer
-from rest_framework.decorators import action
 from django.utils import timezone
+from rest_framework import status, viewsets
+from rest_framework.decorators import action
+from rest_framework.response import Response
+
+from .models import Author, Book, Loan, Member
+from .serializers import AuthorSerializer, BookSerializer, LoanSerializer, MemberSerializer
 from .tasks import send_loan_notification
+
 
 class AuthorViewSet(viewsets.ModelViewSet):
     queryset = Author.objects.all()
     serializer_class = AuthorSerializer
+
 
 class BookViewSet(viewsets.ModelViewSet):
     queryset = Book.objects.all()
@@ -45,9 +48,11 @@ class BookViewSet(viewsets.ModelViewSet):
         book.save()
         return Response({'status': 'Book returned successfully.'}, status=status.HTTP_200_OK)
 
+
 class MemberViewSet(viewsets.ModelViewSet):
     queryset = Member.objects.all()
     serializer_class = MemberSerializer
+
 
 class LoanViewSet(viewsets.ModelViewSet):
     queryset = Loan.objects.all()

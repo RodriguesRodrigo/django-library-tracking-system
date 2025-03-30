@@ -1,5 +1,6 @@
+from django.contrib.auth.models import User  # pylint: disable=imported-auth-user
 from django.db import models
-from django.contrib.auth.models import User
+
 
 class Author(models.Model):
     first_name = models.CharField(max_length=100)
@@ -8,6 +9,7 @@ class Author(models.Model):
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
+
 
 class Book(models.Model):
     GENRE_CHOICES = [
@@ -25,7 +27,8 @@ class Book(models.Model):
     available_copies = models.PositiveIntegerField(default=1)
 
     def __str__(self):
-        return self.title
+        return str(self.title)
+
 
 class Member(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -33,7 +36,8 @@ class Member(models.Model):
     # Add more fields if necessary
 
     def __str__(self):
-        return self.user.username
+        return str(self.user.username)
+
 
 class Loan(models.Model):
     book = models.ForeignKey(Book, related_name='loans', on_delete=models.CASCADE)
