@@ -95,6 +95,9 @@ dmypy.json
 # Rope project settings
 .ropeproject
 
+# Pyenv stuffs
+.python-version
+
 # Other
 *.swp
 *.swo
