@@ -15,10 +15,13 @@ class BookSerializer(serializers.ModelSerializer):
     author_id = serializers.PrimaryKeyRelatedField(
         queryset=Author.objects.all(), source='author', write_only=True
     )
+    member_id = serializers.PrimaryKeyRelatedField(
+        queryset=Member.objects.all(), source='member', write_only=True
+    )
 
     class Meta:
         model = Book
-        fields = ['id', 'title', 'author', 'author_id', 'isbn', 'genre', 'available_copies']
+        fields = ['id', 'title', 'author', 'author_id', 'isbn', 'genre', 'available_copies', 'member_id']
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -50,4 +53,6 @@ class LoanSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Loan
-        fields = ['id', 'book', 'book_id', 'member', 'member_id', 'loan_date', 'return_date', 'is_returned']
+        fields = [
+            'id', 'book', 'book_id', 'member', 'member_id', 'loan_date', 'return_date', 'is_returned', 'due_date'
+        ]

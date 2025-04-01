@@ -19,6 +19,7 @@ class BookViewSet(viewsets.ModelViewSet):
 
     @action(detail=True, methods=['post'])
     def loan(self, request, pk=None):
+        # QUESTION: can a member loan the same book twice?
         book = self.get_object()
         if book.available_copies < 1:
             return Response({'error': 'No available copies.'}, status=status.HTTP_400_BAD_REQUEST)

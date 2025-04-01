@@ -1,3 +1,5 @@
+from datetime import date, timedelta
+
 from django.contrib.auth.models import User  # pylint: disable=imported-auth-user
 from django.db import models
 
@@ -45,6 +47,12 @@ class Loan(models.Model):
     loan_date = models.DateField(auto_now_add=True)
     return_date = models.DateField(null=True, blank=True)
     is_returned = models.BooleanField(default=False)
+    due_date = models.DateField(null=True, blank=True)
 
     def __str__(self):
         return f"{self.book.title} loaned to {self.member.user.username}"
+
+    def save(self, *args, **kwargs):
+        # NOTE: loan_date is the same that datetime.now()
+        self.due_date = date.today() + timedelta(days=14)
+        super(Loan, self).save(*args, **kwargs)
